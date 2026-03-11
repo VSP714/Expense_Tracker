@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter/services.dart';
 import '../providers/expense_provider.dart';
 import '../widgets/expenses_tile.dart';
 
@@ -25,6 +26,9 @@ class ExpensesScreen extends StatelessWidget {
               controller: amountCtrl,
               decoration: const InputDecoration(labelText: 'Amount (₱)'),
               keyboardType: const TextInputType.numberWithOptions(decimal: true),
+              inputFormatters: [
+                FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')),
+              ],
             ),
           ],
         ),

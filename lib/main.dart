@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'providers/expense_provider.dart';
-import 'screens/expense_screen.dart';
+import 'screens/expenses_screen.dart';
 
 void main() {
   runApp(const MyApp());

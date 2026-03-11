@@ -92,39 +92,57 @@ class ExpensesScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Expense Tracker'),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        actions: [
-          Consumer<ExpensesProvider>(
-            builder: (_, provider, _) => Center(
-              child: Padding(
-                padding: const EdgeInsets.only(right: 16),
-                child: Text(
-                  'Total: ₱${provider.totalAmount.toStringAsFixed(2)}',
-                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-                ),
-              ),
-            ),
-          ),
-        ],
       ),
       body: Consumer<ExpensesProvider>(
-        builder: (_, provider, _) {
+        builder: (_, provider, __) {
           final expenses = provider.expenses;
-          if (expenses.isEmpty) {
-            return const Center(
-              child: Text('No expenses yet.\nTap + to add one.',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 16, color: Colors.grey)),
-            );
-          }
-          return ListView.builder(
-            padding: const EdgeInsets.all(12),
-            itemCount: expenses.length,
-            itemBuilder: (_, i) => ExpenseTile(
-              expense: expenses[i],
-              onEdit: () => _showEditDialog(context, expenses[i]),
-              onDelete: () =>
-                  context.read<ExpensesProvider>().deleteExpense(expenses[i].id),
-            ),
+          return Column(
+            children: [
+              // Total card in the body
+              Container(
+                width: double.infinity,
+                margin: const EdgeInsets.all(12),
+                padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
+                decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.inversePrimary,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text('Total Expenses',
+                        style: TextStyle(fontSize: 13, color: Colors.black54)),
+                    const SizedBox(height: 4),
+                    Text(
+                      '₱${provider.totalAmount.toStringAsFixed(2)}',
+                      style: const TextStyle(
+                          fontSize: 28, fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
+              ),
+
+              // Expense list
+              Expanded(
+                child: expenses.isEmpty
+                    ? const Center(
+                        child: Text(
+                          'No expenses yet.\nTap + to add one.',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(fontSize: 16, color: Colors.grey),
+                        ),
+                      )
+                    : ListView.builder(
+                        padding: const EdgeInsets.symmetric(horizontal: 12),
+                        itemCount: expenses.length,
+                        itemBuilder: (_, i) => ExpenseTile(
+                          expense: expenses[i],
+                          onEdit: () => _showEditDialog(context, expenses[i]),
+                          onDelete: () => provider.deleteExpense(expenses[i].id),
+                        ),
+                      ),
+              ),
+            ],
           );
         },
       ),

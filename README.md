@@ -1,17 +1,1 @@
-# flutter_expense_track
-
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+The app is a Flutter Expense Tracker that uses the Provider pattern for state management, with an ExpensesProvider class handling all CRUD operations (create, read, update, delete) on a list of Expense objects. The UI consists of a main screen (ExpensesScreen) showing a total expenses card and a scrollable list of expense tiles, with dialogs for adding and editing entries. Each ExpenseTile displays the title, date, and amount, along with edit and delete buttons that communicate back to the provider to update the app's state.
